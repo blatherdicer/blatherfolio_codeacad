@@ -1,0 +1,11 @@
+html, body { 
+    box-sizing: border-box;
+      padding-bottom: 10px;
+  }
+  
+  header, footer, section {
+      border: 1px solid red;
+  }
+  
+  
+       
