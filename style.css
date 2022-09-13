@@ -1,11 +1,49 @@
-html, body { 
+html,body { 
     box-sizing: border-box;
-      padding-bottom: 10px;
+    margin: 0;
+    height: 100vh;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
   }
-  
-  header, footer, section {
+
+  header, footer, section#projects {
       border: 1px solid red;
   }
+
+  body {
+    display: grid;
+    grid-template-rows:  10% auto 10%;
+    grid-template-columns: 1fr;
+}
+
+  #projects {
+    display: grid;
+    grid-template-rows: 10% auto;
+    grid-template-columns: 1fr;
+    border: 2px solid blue;
+  }
+
+  .projectPanels {
+    min-height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
+    flex-flow: row wrap;
+    overflow: scroll;
+  }
+
+  .project {
+    border: 1px dashed green;
+    flex-shrink: 0;
+    margin: 8px;
+    flex-basis: 31%;
+    height: 200px;
+  }
   
-  
+  @media only screen and (max-width: 600px) {
+    .projectPanels {
+        flex-flow: row nowrap;
+        overflow: scroll;
+    }
+  }
        
