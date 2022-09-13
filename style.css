@@ -1,45 +1,60 @@
-html,body { 
+*{
     box-sizing: border-box;
+    padding: 0;
     margin: 0;
+  }
+
+html,body { 
+    font-family:fantasy;
+    overflow: hidden;
     height: 100vh;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
   }
 
-  header, footer, section#projects {
-      border: 1px solid red;
-  }
-
-  body {
-    display: grid;
-    grid-template-rows:  10% auto 10%;
-    grid-template-columns: 1fr;
+main {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
+  scroll-padding-bottom: 500px;
 }
 
-  #projects {
-    display: grid;
-    grid-template-rows: 10% auto;
-    grid-template-columns: 1fr;
-    border: 2px solid blue;
+section {
+    height: 90vh;
+    scroll-snap-align: start;
+    padding: 10px;
+}
+
+  #introduction {
+    background-color: rgb(207, 251, 236);
   }
 
-  .projectPanels {
-    min-height: 100%;
+  #my-work {
+    display: grid;
+    grid-template-rows: min-content auto;
+    background-color: rgb(246, 251, 207);
+  }
+
+  .my-work__projects {
     display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-    height: 100%;
-    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex-flow: row nowrap;
+
+    overflow: scroll;
+    border: 1px solid orange;
     overflow: scroll;
   }
 
   .project {
-    border: 1px dashed green;
+    flex-basis: 250px;
     flex-shrink: 0;
     margin: 8px;
-    flex-basis: 31%;
-    height: 200px;
+    border: 1px dashed green;
   }
   
+  #contact {
+    background-color: rgb(207, 219, 251);
+  }
+
   @media only screen and (max-width: 600px) {
     .projectPanels {
         flex-flow: row nowrap;
