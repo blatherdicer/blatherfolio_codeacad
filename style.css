@@ -6,6 +6,7 @@
 
 html,body { 
     font-family:fantasy;
+    color: white;
     overflow: hidden;
     height: 100vh;
   }
@@ -14,51 +15,70 @@ main {
   scroll-snap-type: y mandatory;
   overflow-y: scroll;
   height: 100vh;
-  scroll-padding-bottom: 500px;
 }
 
 section {
-    height: 90vh;
     scroll-snap-align: start;
+    scroll-snap-stop: always;
+    height: 100vh;
     padding: 10px;
 }
 
   #introduction {
-    background-color: rgb(207, 251, 236);
+    text-align: center;
+    background: rgb(131,200,213);
+    background: radial-gradient(circle, rgba(131,200,213,1) 0%, rgba(9,9,121,1) 55%, rgba(2,0,36,1) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #introduction>h1{
+    color: white;
+    font-size: 3rem;
   }
 
   #my-work {
     display: grid;
     grid-template-rows: min-content auto;
-    background-color: rgb(246, 251, 207);
+    background: rgb(2,0,36);
+    background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 55%, rgba(131,200,213,1) 100%);
   }
 
-  .my-work__projects {
+  #my-work__projects {
+    scroll-snap-type: x mandatory;
+    overflow-y: scroll;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: stretch;
     flex-flow: row nowrap;
 
     overflow: scroll;
-    border: 1px solid orange;
-    overflow: scroll;
   }
 
   .project {
-    flex-basis: 250px;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    flex-basis: 66vw;
     flex-shrink: 0;
-    margin: 8px;
+    margin: 16px;
     border: 1px dashed green;
+  }
+
+  .projpadding {
+    scroll-snap-align: ;
+    flex-basis: 17vw;
   }
   
   #contact {
-    background-color: rgb(207, 219, 251);
+    background: rgb(131,200,213);
+    background: linear-gradient(180deg, rgba(131,200,213,1) 0%, rgba(9,9,121,1) 83%, rgba(2,0,36,1) 100%);
   }
 
-  @media only screen and (max-width: 600px) {
+  /* @media only screen and (max-width: 600px) {
     .projectPanels {
         flex-flow: row nowrap;
         overflow: scroll;
     }
-  }
+  } */
        
