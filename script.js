@@ -22,12 +22,12 @@ for (let i = 0; i < numOfStars; i++) {
 }
 
 // Implement star fading on scroll down
-const checkpoint = window.innerHeight;
+const stars = document.getElementById('intro-star-wrapper');
+const fadePoint = window.innerHeight;
 const starDimmer = (e) => {
-  const stars = document.getElementById('intro-star-wrapper');
   const currentScroll = document.getElementsByTagName('main')[0].scrollTop;
-  if (currentScroll <= checkpoint) {
-    opacity = 1 - currentScroll / checkpoint;
+  if (currentScroll <= fadePoint) {
+    opacity = 1 - currentScroll / fadePoint;
   } else {
     opacity = 0;
   }
@@ -37,11 +37,30 @@ const starDimmer = (e) => {
 document.getElementsByTagName('main')[0].addEventListener('scroll',starDimmer);
 
 // Implement project fading
-const projDimmer = (e) => {
+const projectCount = 6;
+const projectElements = [];
+for (let i = 0; i <= (projectCount + 1); i++){
+  projectElements[i]=document.getElementById('p'+i);
+};
+
+const projDimmer = () => {
   const projects = document.getElementById('my-work__projects');
   const currentScroll = projects.scrollLeft;
-  console.log(`Window: ${window.innerWidth}, Scroll position: ${currentScroll}, proportion: ${currentScroll/window.innerWidth}`);
+  const projectsWidth = window.innerWidth; // subtract any padding
+
+  let currentProj = Math.round(currentScroll/window.innerWidth / 0.67)+1;
+  let projCenterPoint = (currentProj - 1) * window.innerWidth * 0.67;
+
+  console.log(`currentProj: ${currentProj}, currentScroll: ${currentScroll}, projCenterPoint ${projCenterPoint},`)
+
+  projectElements[currentProj-1].className = 'project lolite' + ((currentProj === 1) ? ' pad' : '');
+  projectElements[currentProj].className = 'project hilite';
+  projectElements[currentProj+1].className = 'project lolite' + ((currentProj === projectCount) ? ' pad' : '');
+
+  console.log(currentProj);
 }
 
 document.getElementById('my-work__projects').addEventListener('scroll',projDimmer);
 
+// Set initial dimming levels
+projDimmer();
