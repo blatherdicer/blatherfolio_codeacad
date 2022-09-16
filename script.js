@@ -38,26 +38,33 @@ document.getElementsByTagName('main')[0].addEventListener('scroll',starDimmer);
 
 // Implement project fading
 const projectCount = 6;
+const projectPanelWidth = 0.67;
 const projectElements = [];
 for (let i = 0; i <= (projectCount + 1); i++){
   projectElements[i]=document.getElementById('p'+i);
 };
 
+function calcProjectPanelOpacity (scrollPosPx, panelNum, winWidth, panelProportion) {
+    const panelWidthPx = panelProportion * winWidth;
+    const panelCenterPx = (panelNum - 1) * panelWidthPx;
+    const fadeOffset = Math.abs(scrollPosPx - panelCenterPx);
+    let projOpacity = fadeOffset / panelWidthPx;
+    projOpacity = (projOpacity > 1) ? 1 : projOpacity;
+    return (1-projOpacity);
+}
+
 const projDimmer = () => {
   const projects = document.getElementById('my-work__projects');
-  const currentScroll = projects.scrollLeft;
+  let currentScroll = projects.scrollLeft;
   const projectsWidth = window.innerWidth; // subtract any padding
 
-  let currentProj = Math.round(currentScroll/window.innerWidth / 0.67)+1;
-  let projCenterPoint = (currentProj - 1) * window.innerWidth * 0.67;
+  let currentProj = Math.round(currentScroll/window.innerWidth / projectPanelWidth)+1;
+  
+  console.log(`currentProj: ${currentProj}, currentScroll: ${currentScroll}, opacity ${calcProjectPanelOpacity(currentScroll, currentProj, projectsWidth)},`)
 
-  console.log(`currentProj: ${currentProj}, currentScroll: ${currentScroll}, projCenterPoint ${projCenterPoint},`)
-
-  projectElements[currentProj-1].className = 'project lolite' + ((currentProj === 1) ? ' pad' : '');
-  projectElements[currentProj].className = 'project hilite';
-  projectElements[currentProj+1].className = 'project lolite' + ((currentProj === projectCount) ? ' pad' : '');
-
-  console.log(currentProj);
+  // projectElements[currentProj-1].opacity = 
+  projectElements[currentProj].opacity = calcProjectPanelOpacity(currentScroll, currentProj, projectsWidth, projectPanelWidth);
+  // projectElements[currentProj+1].opacity =;
 }
 
 document.getElementById('my-work__projects').addEventListener('scroll',projDimmer);
