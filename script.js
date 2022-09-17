@@ -37,34 +37,33 @@ const starDimmer = (e) => {
 document.getElementsByTagName('main')[0].addEventListener('scroll',starDimmer);
 
 // Implement project fading
-const projectCount = 6;
-const projectPanelWidth = 0.67;
-const projectElements = [];
-for (let i = 0; i <= (projectCount + 1); i++){
-  projectElements[i]=document.getElementById('p'+i);
+const panelCount = 6;
+const panelSize = 0.67;
+const panelDivs = [];
+for (let i = 0; i <= (panelCount + 1); i++){
+  panelDivs[i]=document.getElementById('p'+i);
 };
 
-function calcProjectPanelOpacity (scrollPosPx, panelNum, winWidth, panelProportion) {
-    const panelWidthPx = panelProportion * winWidth;
-    const panelCenterPx = (panelNum - 1) * panelWidthPx;
-    const fadeOffset = Math.abs(scrollPosPx - panelCenterPx);
-    let projOpacity = fadeOffset / panelWidthPx;
-    projOpacity = (projOpacity > 1) ? 1 : projOpacity;
-    return (1-projOpacity);
+function calcPanelOpacity (scrollx, panelNum, winWidth, panelWidth = 0.67) {
+  const currScrollPt = (scrollx / winWidth) + panelWidth;
+  const panelScrollPoint = panelNum * panelWidth;
+  const fadeOffset = Math.abs(currScrollPt - panelScrollPoint);
+  let projOpacity = 1-(fadeOffset / panelWidth / 1.5 );
+  return (projOpacity < 0) ? 0 : projOpacity;
 }
 
 const projDimmer = () => {
   const projects = document.getElementById('my-work__projects');
   let currentScroll = projects.scrollLeft;
-  const projectsWidth = window.innerWidth; // subtract any padding
+  let projectsWidth = window.innerWidth; // subtract any padding
 
-  let currentProj = Math.round(currentScroll/window.innerWidth / projectPanelWidth)+1;
+  let currentProj = Math.round(currentScroll/window.innerWidth / panelSize)+1;
   
-  console.log(`currentProj: ${currentProj}, currentScroll: ${currentScroll}, opacity ${calcProjectPanelOpacity(currentScroll, currentProj, projectsWidth)},`)
+  // console.log(`currentProj: ${currentProj}, currentScroll: ${currentScroll}, opacity ${calcPanelOpacity(currentScroll, currentProj, projectsWidth)},`)
 
-  // projectElements[currentProj-1].opacity = 
-  projectElements[currentProj].opacity = calcProjectPanelOpacity(currentScroll, currentProj, projectsWidth, projectPanelWidth);
-  // projectElements[currentProj+1].opacity =;
+  panelDivs[currentProj-1].style.opacity = calcPanelOpacity(currentScroll, currentProj-1, projectsWidth);
+  panelDivs[currentProj].style.opacity = calcPanelOpacity(currentScroll, currentProj, projectsWidth);
+  panelDivs[currentProj+1].style.opacity = calcPanelOpacity(currentScroll, currentProj+1, projectsWidth);;
 }
 
 document.getElementById('my-work__projects').addEventListener('scroll',projDimmer);

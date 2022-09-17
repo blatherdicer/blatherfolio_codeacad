@@ -63,6 +63,7 @@ section {
     margin: 16px;
     /* border: 1px dashed green; */
     position: relative;
+    background:rgb(96, 94, 125);
   }
 
   .pad {
