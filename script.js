@@ -55,12 +55,9 @@ function calcPanelOpacity (scrollx, panelNum, winWidth, panelWidth = 0.67) {
 const projDimmer = () => {
   const projects = document.getElementById('my-work__projects');
   let currentScroll = projects.scrollLeft;
-  let projectsWidth = window.innerWidth; // subtract any padding
-
+  let projectsWidth = window.innerWidth; // note: need to subtract any padding
   let currentProj = Math.round(currentScroll/window.innerWidth / panelSize)+1;
-  
   // console.log(`currentProj: ${currentProj}, currentScroll: ${currentScroll}, opacity ${calcPanelOpacity(currentScroll, currentProj, projectsWidth)},`)
-
   panelDivs[currentProj-1].style.opacity = calcPanelOpacity(currentScroll, currentProj-1, projectsWidth);
   panelDivs[currentProj].style.opacity = calcPanelOpacity(currentScroll, currentProj, projectsWidth);
   panelDivs[currentProj+1].style.opacity = calcPanelOpacity(currentScroll, currentProj+1, projectsWidth);;
