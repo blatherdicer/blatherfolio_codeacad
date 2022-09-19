@@ -52,18 +52,35 @@ function calcPanelOpacity (scrollx, panelNum, winWidth, panelWidth = 0.67) {
   return (projOpacity < 0) ? 0 : projOpacity;
 }
 
-const projDimmer = () => {
+const panelDimmer = () => {
   const projects = document.getElementById('my-work__projects');
   let currentScroll = projects.scrollLeft;
   let projectsWidth = window.innerWidth; // note: need to subtract any padding
   let currentProj = Math.round(currentScroll/window.innerWidth / panelSize)+1;
-  // console.log(`currentProj: ${currentProj}, currentScroll: ${currentScroll}, opacity ${calcPanelOpacity(currentScroll, currentProj, projectsWidth)},`)
   panelDivs[currentProj-1].style.opacity = calcPanelOpacity(currentScroll, currentProj-1, projectsWidth);
   panelDivs[currentProj].style.opacity = calcPanelOpacity(currentScroll, currentProj, projectsWidth);
   panelDivs[currentProj+1].style.opacity = calcPanelOpacity(currentScroll, currentProj+1, projectsWidth);;
 }
 
-document.getElementById('my-work__projects').addEventListener('scroll',projDimmer);
+document.getElementById('my-work__projects').addEventListener('scroll',panelDimmer);
+
+// scroll buttons
+const scrollPanes = (direction) => {
+  const panels = document.getElementById('my-work__projects');
+  let currentPanel = Math.round(panels.scrollLeft/window.innerWidth / panelSize);
+  let nextPanel = currentPanel;
+  if (direction === 'left') {
+    nextPanel = (currentPanel >= 1) ? currentPanel -= 1 : 1;
+  } else if (direction === 'right') {
+    nextPanel = (currentPanel < panelCount) ? currentPanel += 1 : panelCount;
+  } else {
+    console.log('ERROR: invalid scroll direction..')
+  };
+  panels.scrollTo(panelSize * nextPanel * window.innerWidth,0);
+}
+
+document.getElementById('my-work__left-button').addEventListener('click',() => scrollPanes('left'));
+document.getElementById('my-work__right-button').addEventListener('click',() => scrollPanes('right'));
 
 // Set initial dimming levels
-projDimmer();
+panelDimmer();

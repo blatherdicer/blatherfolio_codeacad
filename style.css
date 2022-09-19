@@ -41,7 +41,27 @@ section {
     display: grid;
     grid-template-rows: min-content auto;
     background: rgb(191, 188, 252);
+    position: relative;
     /* background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 55%, rgba(131,200,213,1) 100%); */
+  }
+
+  #my-work__left-button, #my-work__right-button{
+    background-color: rgb(134, 134, 135);
+    font-size: 2rem;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    position: absolute;
+    top: 50%;
+    padding: 0.5rem;
+    z-index: 1;
+  }
+
+  #my-work__left-button{
+    left: 5%;
+  }
+
+  #my-work__right-button{
+    right: 5%;
   }
 
   #my-work__projects {
