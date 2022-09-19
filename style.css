@@ -60,7 +60,6 @@ section {
     scroll-snap-stop: always;
     flex: 3 0 66vw;
     margin: 16px;
-    /* border: 1px dashed green; */
     position: relative;
     background:rgb(96, 94, 125);
   }
