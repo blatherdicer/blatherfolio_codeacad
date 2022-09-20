@@ -78,15 +78,15 @@ section {
   .project {
     scroll-snap-align: center;
     scroll-snap-stop: always;
-    flex: 3 0 66vw;
-    margin: 16px;
+    flex: 3 0 60vw;
     position: relative;
     background:rgb(96, 94, 125);
+    border: 1px solid blue;
   }
 
   .pad {
     scroll-snap-align:none;
-    flex: 1 0 12vw;
+    flex: 1 0 20vw;
   }
 
   #contact {
