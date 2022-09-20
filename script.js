@@ -1,5 +1,4 @@
 // Add stars to welcome screen
-
 const introSection = document.getElementById("introduction");
 const minStarSize = 10;
 const starSizeRange = 20;
@@ -7,21 +6,21 @@ const numOfStars = 250;
 const starWrapper = document.getElementById('intro-star-wrapper');
 
 for (let i = 0; i < numOfStars; i++) {
-  let starSize = Math.floor(Math.random()*starSizeRange + minStarSize);
-  let starX = Math.floor(Math.random()*100);
-  let starY = Math.floor(Math.random()*100);
+  let starSize = Math.floor(Math.random() * starSizeRange + minStarSize);
+  let starX = Math.floor(Math.random() * 100);
+  let starY = Math.floor(Math.random() * 100);
   let starPara = document.createElement('p');
   starPara.className = 'star';
   starPara.style.color = '#FFFFFF';
-  starPara.style.fontSize=`${starSize}px`;
-  starPara.style.position='absolute';
+  starPara.style.fontSize = `${starSize}px`;
+  starPara.style.position = 'absolute';
   starPara.style.top = `${starX}%`;
   starPara.style.left = `${starY}%`;
-  starPara.innerHTML="<p>.</p>"
+  starPara.innerHTML = "<p>.</p>"
   starWrapper.appendChild(starPara);
 }
 
-// Implement star fading on scroll down
+// Add scroll handler to fade stars on scroll down
 const stars = document.getElementById('intro-star-wrapper');
 const fadePoint = window.innerHeight;
 const starDimmer = (e) => {
@@ -31,73 +30,69 @@ const starDimmer = (e) => {
   } else {
     opacity = 0;
   }
-    if (stars.style.opacity !== opacity) {stars.style.opacity = opacity};
+  if (stars.style.opacity !== opacity) { stars.style.opacity = opacity };
+}
+document.getElementsByTagName('main')[0].addEventListener('scroll', starDimmer);
+
+// Implement project panels, scrolling, fading and buttons
+gPanels = {
+  panelCount: 6,
+  panelSize: 0.60,
+  panelPadding: 0,
+  panelDivs: [],
+  minOpacity: 0,
+  lastPanel: 1,
+};
+
+// get initial references to panel divs based on Id
+for (let i = 0; i <= (gPanels.panelCount + 1); i++) {
+  gPanels.panelDivs[i] = document.getElementById('p' + i);
 }
 
-document.getElementsByTagName('main')[0].addEventListener('scroll',starDimmer);
-
-// Implement project fading
-const panelCount = 6;
-const panelSize = 0.67;
-const panelDivs = [];
-for (let i = 0; i <= (panelCount + 1); i++){
-  panelDivs[i]=document.getElementById('p'+i);
-}
-let currPanel = 1;
-
-// get the X position in pixels for a panel
-function getPanelX (panel) {
-  return((panel-1) * panelSize * window.innerWidth)
+// get the scroll X position to center a given panel on screen
+function getPanelX(panelNum) {
+  return ((panelNum - 1) * gPanels.panelSize * (window.innerWidth - (2 * gPanels.panelPadding)))
 }
 
-// get the current panel for an X position
-function getCurrPanel (xPos) {
-  return Math.round(xPos/window.innerWidth / panelSize)+1;
+// get the panel for a given X scroll position
+function getCurrPanel(scrollX) {
+  return Math.round(scrollX / (window.innerWidth - (2 * gPanels.panelPadding)) / gPanels.panelSize) + 1;
 }
 
-// get the offset for an X position and panel
-function getXOffset (xPos, panel) {
-  return Math.abs(xPos - getPanelX(panel)) / (window.innerWidth * panelSize)
+// get the offset for a given X scroll position as a ratio from the panel scroll position
+function getXOffset(scrollX) {
+  return Math.abs(scrollX - getPanelX(getCurrPanel(scrollX))) / ((window.innerWidth - (2 * gPanels.panelPadding)) * gPanels.panelSize)
 }
 
-
-function calcPanelOpacity () {
-    const panelX = getPanelX(panel);
-    const currPanel = getCurrPanel(scrollX);
-    const targetPanel = getCurrPanel(panelX);
-    let projOpacity = 1-(fadeOffset / panelWidth / 1.5 );
-    return (projOpacity < 0) ? 0 : projOpacity;
-  }
-
+// Add scroll event handler to show and hide panels based on scroll position
 const panelDimmer = () => {
   const projects = document.getElementById('my-work__projects');
-  let currentScroll = projects.scrollLeft;
-  let projectsWidth = window.innerWidth; // note: need to subtract any padding
-  let currentProj = Math.round(currentScroll/window.innerWidth / panelSize)+1;
-  panelDivs[currentProj-1].style.opacity = calcPanelOpacity(currentScroll, currentProj-1, projectsWidth);
-  panelDivs[currentProj].style.opacity = calcPanelOpacity(currentScroll, currentProj, projectsWidth);
-  panelDivs[currentProj+1].style.opacity = calcPanelOpacity(currentScroll, currentProj+1, projectsWidth);;
+  const currPanel = getCurrPanel(projects.scrollLeft);
+  if (currPanel !== gPanels.lastPanel) {
+    gPanels.panelDivs[currPanel - 1].style.opacity = gPanels.minOpacity;
+    gPanels.panelDivs[currPanel + 1].style.opacity = gPanels.minOpacity;
+  }
+  gPanels.lastPanel = currPanel;
+  gPanels.panelDivs[currPanel].style.opacity = 1;
 }
+document.getElementById('my-work__projects').addEventListener('scroll', panelDimmer);
 
-document.getElementById('my-work__projects').addEventListener('scroll',panelDimmer);
+panelDimmer()
 
-// scroll buttons
+// Add click handler for buttons to scroll to the next or previous pane
 const scrollPanes = (direction) => {
   const panels = document.getElementById('my-work__projects');
-  let currentPanel = Math.round(panels.scrollLeft/window.innerWidth / panelSize)+1;
-  let nextPanel = currentPanel;
-  if (direction === 'left') {
-    nextPanel = (currentPanel > 1) ? currentPanel -= 1 : 1;
-  } else if (direction === 'right') {
-    nextPanel = (currentPanel < panelCount) ? currentPanel += 1 : panelCount;
-  } else {
-    console.log('ERROR: invalid scroll direction..')
+  const currPanel = getCurrPanel(panels.scrollLeft);
+  let nextPanel = currPanel;
+  if (direction === 'left' && currPanel > 1) {
+    nextPanel = currPanel - 1;
+  } else if (direction === 'right' && currPanel < gPanels.panelCount) {
+    nextPanel = currPanel + 1;
   };
-  if (nextPanel !== currentPanel) {panels.scrollTo((nextPanel-1) * panelSize * window.innerWidth,0)};
+  panels.scrollTo({
+    left: getPanelX(nextPanel),
+    behavior: 'smooth'
+  })
 }
-
-document.getElementById('my-work__left-button').addEventListener('click',() => scrollPanes('left'));
-document.getElementById('my-work__right-button').addEventListener('click',() => scrollPanes('right'));
-
-// Set initial dimming levels
-panelDimmer();
+document.getElementById('my-work__left-button').addEventListener('click', () => scrollPanes('left'));
+document.getElementById('my-work__right-button').addEventListener('click', () => scrollPanes('right'));
