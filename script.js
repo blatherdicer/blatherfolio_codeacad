@@ -42,15 +42,32 @@ const panelSize = 0.67;
 const panelDivs = [];
 for (let i = 0; i <= (panelCount + 1); i++){
   panelDivs[i]=document.getElementById('p'+i);
-};
-
-function calcPanelOpacity (scrollx, panelNum, winWidth, panelWidth = 0.67) {
-  const currScrollPt = (scrollx / winWidth) + panelWidth;
-  const panelScrollPoint = panelNum * panelWidth;
-  const fadeOffset = Math.abs(currScrollPt - panelScrollPoint);
-  let projOpacity = 1-(fadeOffset / panelWidth / 1.5 );
-  return (projOpacity < 0) ? 0 : projOpacity;
 }
+let currPanel = 1;
+
+// get the X position in pixels for a panel
+function getPanelX (panel) {
+  return((panel-1) * panelSize * window.innerWidth)
+}
+
+// get the current panel for an X position
+function getCurrPanel (xPos) {
+  return Math.round(xPos/window.innerWidth / panelSize)+1;
+}
+
+// get the offset for an X position and panel
+function getXOffset (xPos, panel) {
+  return Math.abs(xPos - getPanelX(panel)) / (window.innerWidth * panelSize)
+}
+
+
+function calcPanelOpacity () {
+    const panelX = getPanelX(panel);
+    const currPanel = getCurrPanel(scrollX);
+    const targetPanel = getCurrPanel(panelX);
+    let projOpacity = 1-(fadeOffset / panelWidth / 1.5 );
+    return (projOpacity < 0) ? 0 : projOpacity;
+  }
 
 const panelDimmer = () => {
   const projects = document.getElementById('my-work__projects');
@@ -67,16 +84,16 @@ document.getElementById('my-work__projects').addEventListener('scroll',panelDimm
 // scroll buttons
 const scrollPanes = (direction) => {
   const panels = document.getElementById('my-work__projects');
-  let currentPanel = Math.round(panels.scrollLeft/window.innerWidth / panelSize);
+  let currentPanel = Math.round(panels.scrollLeft/window.innerWidth / panelSize)+1;
   let nextPanel = currentPanel;
   if (direction === 'left') {
-    nextPanel = (currentPanel >= 1) ? currentPanel -= 1 : 1;
+    nextPanel = (currentPanel > 1) ? currentPanel -= 1 : 1;
   } else if (direction === 'right') {
     nextPanel = (currentPanel < panelCount) ? currentPanel += 1 : panelCount;
   } else {
     console.log('ERROR: invalid scroll direction..')
   };
-  panels.scrollTo(panelSize * nextPanel * window.innerWidth,0);
+  if (nextPanel !== currentPanel) {panels.scrollTo((nextPanel-1) * panelSize * window.innerWidth,0)};
 }
 
 document.getElementById('my-work__left-button').addEventListener('click',() => scrollPanes('left'));
