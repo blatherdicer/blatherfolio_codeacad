@@ -1,4 +1,4 @@
-// Add stars to welcome screen
+// Add a starfield to welcome screen
 const introSection = document.getElementById("introduction");
 const minStarSize = 10;
 const starSizeRange = 20;
@@ -22,7 +22,7 @@ for (let i = 0; i < numOfStars; i++) {
 
 // Add scroll handler to fade stars on scroll down
 const stars = document.getElementById('intro-star-wrapper');
-const fadePoint = window.innerHeight;
+const fadePoint = window.innerHeight / 2;
 const starDimmer = (e) => {
   const currentScroll = document.getElementsByTagName('main')[0].scrollTop;
   if (currentScroll <= fadePoint) {
@@ -37,7 +37,7 @@ document.getElementsByTagName('main')[0].addEventListener('scroll', starDimmer);
 // Implement project panels, scrolling, fading and buttons
 gPanels = {
   panelCount: 6,
-  panelSize: 0.60,
+  panelSize: 0.70,
   panelPadding: 0,
   panelDivs: [],
   minOpacity: 0,
@@ -69,8 +69,7 @@ const panelDimmer = () => {
   const projects = document.getElementById('my-work__projects');
   const currPanel = getCurrPanel(projects.scrollLeft);
   if (currPanel !== gPanels.lastPanel) {
-    gPanels.panelDivs[currPanel - 1].style.opacity = gPanels.minOpacity;
-    gPanels.panelDivs[currPanel + 1].style.opacity = gPanels.minOpacity;
+    gPanels.panelDivs[gPanels.lastPanel].style.opacity = gPanels.minOpacity;
   }
   gPanels.lastPanel = currPanel;
   gPanels.panelDivs[currPanel].style.opacity = 1;
@@ -96,3 +95,8 @@ const scrollPanes = (direction) => {
 }
 document.getElementById('my-work__left-button').addEventListener('click', () => scrollPanes('left'));
 document.getElementById('my-work__right-button').addEventListener('click', () => scrollPanes('right'));
+
+// Add starfield to contact section
+// Already made one manually so let's use a library
+// warpspeed.js - https://github.com/adolfintel/warpspeed
+const warp = new WarpSpeed('starField','{"speed":0.7,"speedAdjFactor":0.03,"density":2,"shape":"circle","warpEffect":true,"warpEffectLength":6,"depthFade":true,"starSize":3,"backgroundColor":"hsl(263,45%,7%)","starColor":"#FFFFFF"}');

@@ -40,9 +40,8 @@ section {
   #my-work {
     display: grid;
     grid-template-rows: min-content auto;
-    background: rgb(191, 188, 252);
+    background: rgb(0, 0, 0);
     position: relative;
-    /* background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 55%, rgba(131,200,213,1) 100%); */
   }
 
   #my-work__left-button, #my-work__right-button{
@@ -67,32 +66,43 @@ section {
   #my-work__projects {
     display: flex;
     justify-content: space-between;
-    align-items: stretch;
+    align-items: center;
     flex-flow: row nowrap;
-    scroll-snap-type: x mandatory;
+    scroll-snap-type: x proximity;
     scroll-snap-stop: always;
-    overflow-y: scroll;
     overflow: scroll;
   }
 
   .project {
-    flex: 3 0 60vw;
+    flex: 3 0 70vw;
     position: relative;
     scroll-snap-align: center;
     scroll-snap-stop: always;
+    height: 80vh;
     opacity:0;
-    transition: opacity 0.5s ease-in;
+    transition: opacity 0.3s linear;
     background:rgb(96, 94, 125);
   }
 
   .pad {
     scroll-snap-align:none;
-    flex: 1 0 20vw;
+    flex: 1 0 15vw;
   }
 
   #contact {
-    background: rgb(131,200,213);
-    background: linear-gradient(180deg, rgba(131,200,213,1) 0%, rgba(9,9,121,1) 83%, rgba(2,0,36,1) 100%);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #starField {
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
   }
 
   /* @media only screen and (max-width: 600px) {
