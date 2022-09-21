@@ -1,4 +1,4 @@
-// Add a starfield to welcome screen
+// Add a starfield to welcome screen TO DO: Refactor to canvas
 const introSection = document.getElementById("introduction");
 const minStarSize = 10;
 const starSizeRange = 20;
