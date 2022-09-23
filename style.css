@@ -26,7 +26,7 @@ section {
   #introduction {
     text-align: center;
     background: rgb(131,200,213);
-    background: radial-gradient(circle, rgba(131,200,213,1) 0%, rgba(9,9,121,1) 55%, rgba(2,0,36,1) 100%);
+    background: radial-gradient(circle, rgba(162,228,241,1) 0%, rgba(9,9,121,1) 37%, rgba(2,0,36,1) 50%, rgba(16,10,26,1) 60%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,7 +40,7 @@ section {
   #my-work {
     display: grid;
     grid-template-rows: min-content auto;
-    background: rgb(0, 0, 0);
+    background: rgba(16,10,26,1) ;
     position: relative;
   }
 
@@ -111,4 +111,4 @@ section {
         overflow: scroll;
     }
   } */
-       
+
