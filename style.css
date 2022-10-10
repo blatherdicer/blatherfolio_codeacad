@@ -40,12 +40,12 @@ section {
   #my-work {
     display: grid;
     grid-template-rows: min-content auto;
-    background: rgba(16,10,26,1) ;
     position: relative;
+    z-index: 1;
   }
 
   #my-work__left-button, #my-work__right-button{
-    background-color: rgb(134, 134, 135);
+    background-color: rgb(69, 69, 69);
     font-size: 2rem;
     font-weight: bold;
     border-radius: 0.5rem;
@@ -71,6 +71,7 @@ section {
     scroll-snap-type: x proximity;
     scroll-snap-stop: always;
     overflow: scroll;
+    color: rgb(255, 255, 255);
   }
 
   .project {
@@ -80,8 +81,31 @@ section {
     scroll-snap-stop: always;
     height: 80vh;
     opacity:0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-flow: column nowrap;
     transition: opacity 0.3s linear;
-    background:rgb(96, 94, 125);
+    border-radius: 1rem;
+    background: rgb(255,255,255);
+  }
+
+  .project h3{
+    font-size: 2rem;
+  }
+
+  .project-summary {
+      font-size: 1.5rem;
+  }
+
+  .project-screenshot {
+      width: 80%;
+      height: auto;
+      border: 1px solid red;
+  }
+
+  .project-link {
+    font-size: 2rem;
   }
 
   .pad {

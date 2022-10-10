@@ -23,7 +23,7 @@ for (let i = 0; i < numOfStars; i++) {
 
 // Add scroll handler to fade stars on scroll down
 const stars = document.getElementById('intro-star-wrapper');
-const fadePoint = window.innerHeight;
+const fadePoint = window.innerHeight * 2;
 const starDimmer = (e) => {
   const currentScroll = document.getElementsByTagName('main')[0].scrollTop;
   if (currentScroll <= fadePoint) {
@@ -100,4 +100,4 @@ document.getElementById('my-work__right-button').addEventListener('click', () =>
 // Add starfield to contact section
 // Already made one manually so let's use a library
 // warpspeed.js - https://github.com/adolfintel/warpspeed
-const warp = new WarpSpeed('starField','{"speed":0.7,"speedAdjFactor":0.03,"density":2,"shape":"circle","warpEffect":true,"warpEffectLength":6,"depthFade":true,"starSize":3,"backgroundColor":"rgba(16,10,26,1)","starColor":"#FFFFFF"}');
+const warp = new WarpSpeed('starField','{"speed":0.7,"speedAdjFactor":0.03,"density":3,"shape":"circle","warpEffect":true,"warpEffectLength":6,"depthFade":true,"starSize":2,"backgroundColor":"rgba(16,10,26,1)","starColor":"#FFFFFF"}');
