@@ -1,4 +1,4 @@
-// Add a starfield to welcome screen TO DO: Refactor to canvas
+// Add a starfield to welcome screen
 const introSection = document.getElementById("introduction");
 const minStarSize = 10;
 const starSizeRange = 20;
@@ -100,4 +100,4 @@ document.getElementById('my-work__right-button').addEventListener('click', () =>
 // Add starfield to contact section
 // Already made one manually so let's use a library
 // warpspeed.js - https://github.com/adolfintel/warpspeed
-const warp = new WarpSpeed('starField','{"speed":0.7,"speedAdjFactor":0.03,"density":3,"shape":"circle","warpEffect":true,"warpEffectLength":6,"depthFade":true,"starSize":2,"backgroundColor":"rgba(16,10,26,1)","starColor":"#FFFFFF"}');
+const warp = new WarpSpeed('starField','{"speed":0.7,"speedAdjFactor":0.03,"density":3,"shape":"circle","warpEffect":true,"warpEffectLength":4,"depthFade":true,"starSize":2,"backgroundColor":"rgba(16,10,26,1)","starColor":"#FFFFFF"}');
