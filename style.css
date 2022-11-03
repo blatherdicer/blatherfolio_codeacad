@@ -5,7 +5,7 @@
   }
 
 html,body { 
-    font-family:fantasy;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color: white;
     overflow: hidden;
     height: 100vh;
@@ -24,6 +24,7 @@ section {
 }
 
   #introduction {
+    font-family:fantasy;
     text-align: center;
     background: rgb(131,200,213);
     background: radial-gradient(circle, rgba(162,228,241,1) 0%, rgba(9,9,121,1) 37%, rgba(2,0,36,1) 50%, rgba(16,10,26,1) 60%);
@@ -63,6 +64,10 @@ section {
     right: 5%;
   }
 
+  #my-work__intro{
+    margin: 2vw 5vw 0;
+  }
+
   #my-work__projects {
     display: flex;
     justify-content: space-between;
@@ -75,7 +80,7 @@ section {
   }
 
   .project {
-    flex: 3 0 70vw;
+    flex: 1 0 70vw;
     position: relative;
     scroll-snap-align: center;
     scroll-snap-stop: always;
@@ -87,25 +92,44 @@ section {
     flex-flow: column nowrap;
     transition: opacity 0.3s linear;
     border-radius: 1rem;
-    background: rgb(255,255,255);
+    padding: 16px;
+    background: rgb(0, 0, 0);
+    -webkit-box-shadow:0px 0px 85px 14px rgba(80,109,250,0.9);
+    -moz-box-shadow: 0px 0px 85px 14px rgba(80,109,250,0.9);
+    box-shadow: 0px 0px 85px 14px rgba(80,109,250,0.9);
   }
 
   .project h3{
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
   .project-summary {
-      font-size: 1.5rem;
+      font-size: 1rem;
+      font-weight: 200;
+      line-height: 1rem;
+  }
+
+  .project-summary p {
+    margin-bottom: 1rem;
+    overflow-wrap: normal;
   }
 
   .project-screenshot {
-      width: 80%;
-      height: auto;
-      border: 1px solid red;
+ }
+
+  .project-screenshot img {
+      width: 100%;
+      max-width: 1000px;
+      max-height: 60vh;
   }
 
   .project-link {
-    font-size: 2rem;
+    font-size: 1.1rem;
+    overflow-wrap:normal;
+  }
+
+  .project-link a,a:visited {
+    color:azure;
   }
 
   .pad {
@@ -114,6 +138,7 @@ section {
   }
 
   #contact {
+    font-family: fantasy;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -129,10 +154,4 @@ section {
     height: 100vh;
   }
 
-  /* @media only screen and (max-width: 600px) {
-    .projectPanels {
-        flex-flow: row nowrap;
-        overflow: scroll;
-    }
-  } */
 
